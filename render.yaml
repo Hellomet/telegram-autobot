@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: telegram-auto-reply
+    env: python
+    buildCommand: ""
+    startCommand: "gunicorn main:app"
