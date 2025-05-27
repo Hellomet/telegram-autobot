@@ -1,10 +1,10 @@
 from flask import Flask, request
 import requests
 
-TOKEN = '7528347229:AAH_sM9kOBvoL1gHbqOVo5YK0GrV5FiLU8o'
+TOKEN = 'ใส่-BOT-TOKEN-ของคุณ'
 API_URL = f'https://api.telegram.org/bot{TOKEN}/sendMessage'
 
-app = Flask(__name__)
+app = Flask(__name__)  # <-- บรรทัดสำคัญที่ทำให้ gunicorn หาเจอ
 
 @app.route('/')
 def home():
@@ -16,13 +16,8 @@ def webhook():
     if 'message' in data:
         chat_id = data['message']['chat']['id']
         text = data['message'].get('text', '')
-
-        reply = f"คุณพิมพ์ว่า: {text}\n🤖 นี่คือการตอบกลับอัตโนมัติ!"
-        payload = {
-            'chat_id': chat_id,
-            'text': reply
-        }
-        requests.post(API_URL, data=payload)
+        reply = f"คุณพิมพ์ว่า: {text}\\n🤖 ตอบกลับอัตโนมัติ!"
+        requests.post(API_URL, data={'chat_id': chat_id, 'text': reply})
     return 'ok'
 
 if __name__ == '__main__':
